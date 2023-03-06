@@ -59,4 +59,8 @@ class User extends Authenticatable
             Storage::delete('/public/images/'.Auth::user()->avatar);
         }
     }
+
+    public function todos(){
+        return $this->hasMany(todo::class);
+    }
 }

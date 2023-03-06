@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TodoCreateRequest;
 use App\Models\todo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('auth')->except('index');
+        $this->middleware('auth');
+    }
     public function index(){
         // $todos = todo::all();
-        $todos = todo::orderBy('completed')->get();
+        // $todos = todo::orderBy('completed')->get();
+        $todos = auth()->user()->todos->sortBy('completed');
         return view('todos.index')->with(['todos' => $todos]);
     }
 
@@ -25,7 +33,7 @@ class TodoController extends Controller
 
     public function store(TodoCreateRequest $request){
 
-        todo::create($request->all());
+        auth()->user()->todos->create($request->all());
         return redirect(Route('todos.index'))->with('message', 'To-Do created successfully.');
     }
 
