@@ -23,15 +23,17 @@ Route::post('/todos/create', [TodoController::class, 'store']);
 
 Route::get('/todos/create', [TodoController::class, 'create']);
 
-Route::get('/todos/{id}/edit', [TodoController::class, 'edit']);
+Route::get('/todos/{todo}/edit', [TodoController::class, 'edit']);
 
-Route::patch('/todos/{id}/update', [TodoController::class, 'update'])->name('todos.update');
+Route::patch('/todos/{todo}/update', [TodoController::class, 'update'])->name('todos.update');
 
-Route::put('/todos/{id}/complete', [TodoController::class, 'complete'])->name('todos.complete');
+Route::put('/todos/{todo}/complete', [TodoController::class, 'complete'])->name('todos.complete');
 
-Route::delete('/todos/{id}/incomplete', [TodoController::class, 'incomplete'])->name('todos.incomplete');
+Route::delete('/todos/{todo}/incomplete', [TodoController::class, 'incomplete'])->name('todos.incomplete');
 
-Route::delete('/todos/{id}/delete', [TodoController::class, 'delete'])->name('todos.delete');
+Route::delete('/todos/{todo}/delete', [TodoController::class, 'delete'])->name('todos.delete');
+
+Route::get('/todos/{todo}/show', [TodoController::class, 'show'])->name('todos.show');
 
 
 Route::get('/', function () {

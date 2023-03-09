@@ -9,6 +9,13 @@ class todo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'completed'];
+    protected $fillable = ['title', 'completed', 'description'];
+
+    public function steps()
+    {
+        return $this->hasMany(step::class);
+    }
+
 
 }
+
