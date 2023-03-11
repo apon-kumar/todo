@@ -30,7 +30,7 @@ class TodoCreateRequest extends FormRequest
     {
         return [
             'title.max' => 'To-Do title should not be greater than 255 characters',
-            'title.required' => 'Cannot be empty!'
+            'title.required' => 'Title cannot be empty!'
         ];
     }
 }

@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent;
 
 class TodoController extends Controller
 {
@@ -33,13 +34,14 @@ class TodoController extends Controller
     }
 
     public function update(TodoCreateRequest $request,todo $todo){
+
         $todo->update(['title' => $request->title, 'description' => $request->description]);
 
         if ($request->stepName) {            
             foreach ($request->stepName as $key => $value) {
                 $id = $request->stepId[$key];
                 if (!$id) {
-                    $todo->steps->create(['name' => $value]);
+                    $todo->steps()->create(['name' => $value]);
                 }
                 else{
                     $step = step::find($id);
@@ -52,9 +54,9 @@ class TodoController extends Controller
 
     public function store(TodoCreateRequest $request){
 
-        // auth()->user()->todos()->create($request->all());
-        
+        // auth()->user()->todos()->create($request->all());   
         $todo = auth()->user()->todos()->create($request->all());
+        
         if ($request->stepName) {            
             foreach ($request->stepName as $step) {
                 $todo->steps()->create(['name' => $step]);
